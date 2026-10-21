@@ -41,6 +41,59 @@
         "EMAIL_REQUIRED": "Email address is required",
         "EMAIL_INVALID": "Please enter a valid email address"
     },
+    "AUTH": {
+        "LOGIN_SUBTITLE": "Enter your details below to access your account",
+        "REGISTER_SUBTITLE": "Enter your details below to create your account",
+        "OR": "or",
+        "CANCEL": "Cancel",
+        "BACK_TO_LOGIN": "Back to login",
+        "CONFIRM_PASSWORD": "Confirm password",
+        "SHOW_PASSWORD": "Show password",
+        "HIDE_PASSWORD": "Hide password",
+        "SIGNING_IN": "Signing you in...",
+        "CREATING_ACCOUNT": "Creating your account...",
+        "RESETTING": "Resetting...",
+        "PANEL": {
+            "TITLE": "Shopping that feels premium.",
+            "SUBTITLE": "Join thousands of shoppers enjoying exclusive deals, fast delivery and member-only prices.",
+            "RESET_TITLE": "Your security, our priority.",
+            "RESET_SUBTITLE": "Account protection doesn't stop at sign-in — create a strong password to keep it that way.",
+            "PASSWORD_TIP": "Use 8+ characters with letters, numbers & symbols",
+            "POINT_1": "Exclusive member deals & flash sales",
+            "POINT_2": "Fast, tracked delivery on every order",
+            "POINT_3": "Secure checkout & encrypted data",
+            "TRUST": "Trusted by thousands of shoppers"
+        },
+        "STRENGTH": {
+            "LABEL": "Password strength",
+            "WEAK": "Weak password",
+            "FAIR": "Fair password",
+            "GOOD": "Good password",
+            "STRONG": "Strong password"
+        },
+        "VALIDATION": {
+            "REQUIRED": "This field is required",
+            "EMAIL": "Please enter a valid email address",
+            "MIN_LENGTH": "Must be at least 6 characters",
+            "MAX_LENGTH": "Must be at most 16 characters",
+            "INVALID": "The value entered is invalid",
+            "FORM_INVALID": "Please complete the form correctly.",
+            "PASSWORD_MISMATCH": "Passwords do not match"
+        },
+        "RESET": {
+            "SUBTITLE": "Enter your email address and we'll send you a link to reset your password.",
+            "NEW_PASSWORD": "New password",
+            "CONFIRM_PASSWORD": "Confirm new password",
+            "SUBMIT": "Reset password",
+            "SUCCESS_TITLE": "Password reset successful!",
+            "SUCCESS_TEXT": "You can now sign in with your new password.",
+            "REDIRECTING": "Redirecting you to sign in...",
+            "INVALID_TITLE": "Invalid or expired link",
+            "INVALID_TEXT": "This password reset link is invalid or has expired. Please request a new password reset.",
+            "GO_LOGIN": "Go to sign in",
+            "FAILURE": "Failed to reset your password. The link may have expired."
+        }
+    },
     "BANNER": {
         "SUMMER_SALE": "Summer sale on all swimwear with free express delivery - save 50%!",
         "SHOP_NOW": "Shop Now",

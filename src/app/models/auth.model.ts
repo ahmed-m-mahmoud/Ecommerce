@@ -6,8 +6,8 @@ export interface AuthResponse {
     firstName?: string;
     lastName?: string;
     photoUrl?: string;
-    accessToken: string;
-    refreshToken: string;
+    accessToken: string; //local storage.
+    refreshToken: string; // in cookies instead of ls
     expiresAt: string;
 }
 

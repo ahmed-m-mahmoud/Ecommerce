@@ -1,110 +1,177 @@
-import { Component, OnInit, ViewEncapsulation, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+    NonNullableFormBuilder,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Subject, finalize, takeUntil } from 'rxjs';
+import {
+    PASSWORD_MAX_LENGTH,
+    PASSWORD_MIN_LENGTH,
+    PasswordStrength,
+    firstErrorKey,
+    passwordStrength,
+} from '../auth.helpers';
 
 @Component({
-  selector: 'app-reset-password',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule,
-    ToastModule,
-    TranslateModule
-  ],
-  templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.scss',
-  providers: [MessageService],
+    selector: 'app-reset-password',
+    standalone: true,
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        RouterModule,
+        ToastModule,
+        TranslateModule,
+    ],
+    templateUrl: './reset-password.component.html',
+    styleUrl: './reset-password.component.scss',
+    providers: [MessageService],
 })
-export class ResetPasswordComponent implements OnInit {
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
-  private fb = inject(FormBuilder);
-  private auth = inject(AuthService);
-  private messageService = inject(MessageService);
-  private translate = inject(TranslateService);
+export class ResetPasswordComponent implements OnInit, OnDestroy {
+    private route = inject(ActivatedRoute);
+    private router = inject(Router);
+    private fb = inject(NonNullableFormBuilder);
+    private auth = inject(AuthService);
+    private messageService = inject(MessageService);
+    private translate = inject(TranslateService);
 
-  token: string = '';
-  email: string = '';
-  isLoading = false;
-  isSuccess = false;
-  error: string | null = null;
+    token = '';
+    email = '';
+    submitted = false;
+    isLoading = false;
+    isSuccess = false;
+    linkInvalid = false;
+    serverError: string | null = null;
+    showPassword = false;
+    endSubs = new Subject<void>();
 
-  form = this.fb.group({
-    newPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]],
-    confirmPassword: ['', [Validators.required]]
-  });
-
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.token = params['token'] || '';
-      this.email = params['email'] || '';
-
-      if (!this.token || !this.email) {
-        this.error = 'Invalid reset link. Please request a new password reset.';
-      }
+    form = this.fb.group({
+        newPassword: [
+            '',
+            [
+                Validators.required,
+                Validators.minLength(PASSWORD_MIN_LENGTH),
+                Validators.maxLength(PASSWORD_MAX_LENGTH),
+            ],
+        ],
+        confirmPassword: ['', [Validators.required]],
     });
-  }
 
-  submit(): void {
-    if (this.form.invalid) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Please fill in all fields correctly'
-      });
-      return;
+    ngOnInit(): void {
+        const params = this.route.snapshot.queryParamMap;
+        this.token = params.get('token') ?? '';
+        this.email = params.get('email') ?? '';
+        this.linkInvalid = !this.token || !this.email;
     }
 
-    const { newPassword, confirmPassword } = this.form.value;
-
-    if (newPassword !== confirmPassword) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Passwords do not match'
-      });
-      return;
+    /* ---------- Validation (template helpers) ---------- */
+    get strength(): PasswordStrength {
+        return passwordStrength(this.form.controls.newPassword.value);
     }
 
-    this.isLoading = true;
-    this.error = null;
+    get newPasswordError(): string | null {
+        return this.submitted
+            ? firstErrorKey(this.form.controls.newPassword)
+            : null;
+    }
 
-    this.auth.resetPassword({
-      email: this.email,
-      token: this.token,
-      newPassword: newPassword
-    }).subscribe({
-      next: (response) => {
-        this.isLoading = false;
-        if (response.success) {
-          this.isSuccess = true;
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Password reset successfully! You can now login with your new password.'
-          });
-          setTimeout(() => {
-            this.router.navigate(['/auth/login']);
-          }, 3000);
-        } else {
-          this.error = response.message || 'Failed to reset password';
+    get confirmError(): string | null {
+        const confirm = this.form.controls.confirmPassword;
+        if ((!this.submitted && !confirm.touched) || !confirm.value) {
+            return null;
         }
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.error = err.message || 'Failed to reset password. The link may have expired.';
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: this.error!
-        });
-      }
-    });
-  }
+        if (confirm.errors) return firstErrorKey(confirm);
+        return confirm.value !== this.form.controls.newPassword.value
+            ? 'AUTH.VALIDATION.PASSWORD_MISMATCH'
+            : null;
+    }
+
+    get hasMismatch(): boolean {
+        const confirm = this.form.controls.confirmPassword;
+        return (
+            !!confirm.value &&
+            !confirm.errors &&
+            confirm.value !== this.form.controls.newPassword.value
+        );
+    }
+
+    /* ---------- Actions ---------- */
+    submit(): void {
+        this.submitted = true;
+        this.serverError = null;
+
+        if (this.linkInvalid) return;
+
+        if (this.form.invalid || this.hasMismatch) {
+            this.form.markAllAsTouched();
+            this.toast('error', 'TOAST_MESSAGE.fillForm');
+            return;
+        }
+
+        const { newPassword } = this.form.getRawValue();
+        this.isLoading = true;
+
+        this.auth
+            .resetPassword({
+                email: this.email,
+                token: this.token,
+                newPassword,
+            })
+            .pipe(takeUntil(this.endSubs), finalize(() => (this.isLoading = false)))
+            .subscribe({
+                next: (response) => {
+                    if (response.success) {
+                        this.isSuccess = true;
+                        this.toast(
+                            'success',
+                            'AUTH.RESET.SUCCESS_TEXT',
+                            'TOAST_MESSAGE.success'
+                        );
+                        setTimeout(
+                            () => this.router.navigate(['/auth/login']),
+                            3000
+                        );
+                    } else {
+                        this.serverError =
+                            response.message ||
+                            this.translate.instant('ERROR_MESSAGES.UNKNOWN_ERROR');
+                    }
+                },
+                error: (err) => {
+                    this.serverError =
+                        err?.message ||
+                        this.translate.instant('AUTH.RESET.FAILURE');
+                    this.toast('error', 'AUTH.RESET.FAILURE');
+                },
+            });
+    }
+
+    /* ---------- Helpers ---------- */
+    private toast(
+        severity: 'error' | 'success',
+        detailKey: string,
+        summaryKey: string = 'TOAST_MESSAGE.error'
+    ) {
+        this.translate
+            .get([summaryKey, detailKey])
+            .pipe(takeUntil(this.endSubs))
+            .subscribe((translations) => {
+                this.messageService.add({
+                    severity,
+                    summary: translations[summaryKey],
+                    detail: translations[detailKey],
+                });
+            });
+    }
+
+    ngOnDestroy(): void {
+        this.endSubs.next();
+        this.endSubs.complete();
+    }
 }

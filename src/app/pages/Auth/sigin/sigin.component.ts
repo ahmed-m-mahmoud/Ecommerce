@@ -1,216 +1,189 @@
+import { Component, OnDestroy, inject } from '@angular/core';
 import {
-    ChangeDetectorRef,
-    Component,
-    inject,
-    OnDestroy,
-    ViewEncapsulation,
-} from '@angular/core';
-import {
-    FormsModule,
     NonNullableFormBuilder,
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';
 import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LoadingService } from '../../../core/services/loading.service';
-import { Subject, switchMap, takeUntil, tap, finalize } from 'rxjs';
-import { LoadingComponent } from '../../../shared/components/loading/loading.component';
-import { AnimateFadeUpDirective } from '../../../shared/animations/scroll-animation/fade-up';
-import { AnimateFromRightDirective } from '../../../shared/animations/scroll-animation/right';
+import { Subject, finalize, takeUntil } from 'rxjs';
 import { GoogleAuthService } from '../../../services/auth/auth-google.service';
+import {
+    PASSWORD_MAX_LENGTH,
+    PASSWORD_MIN_LENGTH,
+    firstErrorKey,
+} from '../auth.helpers';
+
 @Component({
     selector: 'app-sigin',
     standalone: true,
     imports: [
         ReactiveFormsModule,
-        CommonModule,
         ToastModule,
-        RippleModule,
-        FormsModule,
         DialogModule,
-        ButtonModule,
-        InputTextModule,
         TranslateModule,
         RouterModule,
-        LoadingComponent,
-        AnimateFadeUpDirective,
-        AnimateFromRightDirective
     ],
     templateUrl: './sigin.component.html',
     styleUrl: './sigin.component.scss',
-    encapsulation: ViewEncapsulation.None,
     providers: [MessageService],
 })
 export class SigInComponent implements OnDestroy {
-    constructor(private messageService: MessageService) { }
-    translate = inject(TranslateService);
-    fb = inject(NonNullableFormBuilder);
-    auth = inject(AuthService);
-    cdr = inject(ChangeDetectorRef);
-    googleS = inject(GoogleAuthService);
+    private messageService = inject(MessageService);
+    private translate = inject(TranslateService);
+    private fb = inject(NonNullableFormBuilder);
+    private auth = inject(AuthService);
+    private googleS = inject(GoogleAuthService);
+    private router = inject(Router);
 
-    form;
-    logIn = false;
-    isLoggedIn = false;
-    isGoogleInitialized = false;
-    error: any = null;
-    endSubs = new Subject<void>();
-    ngOnInit(): void {
-        this.initForm();
-        this.isGoogleInitialized = true;
-
-        this.googleS.isLoggedInFromGoogle$
-            .pipe(takeUntil(this.endSubs))
-            .subscribe((isLoggedIn) => {
-                this.isLoggedIn = isLoggedIn;
-                if (isLoggedIn) {
-                    this.router.navigate(['/home']);
-                }
-                this.cdr.detectChanges();
-            });
-    }
-
-    private initForm() {
-        this.form = this.fb.group({
-            name: [''],
-            email: [
-                'ahsfgrdA@gmail.com',
-                [Validators.required, Validators.email],
+    form = this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: [
+            '',
+            [
+                Validators.required,
+                Validators.minLength(PASSWORD_MIN_LENGTH),
+                Validators.maxLength(PASSWORD_MAX_LENGTH),
             ],
-            password: [
-                '',
-                [
-                    Validators.required,
-                    Validators.minLength(6),
-                    Validators.maxLength(16),
-                ],
-            ],
-        });
-    }
+        ],
+    });
 
     resetEmail = this.fb.control('', [Validators.required, Validators.email]);
 
-    submit() {
-        if (this.form.valid) {
-            const email = this.form.value.email;
-            const password = this.form.value.password;
+    submitted = false;
+    isLoading = false;
+    isResetting = false;
+    showPassword = false;
+    error: string | null = null;
+    visibleDialog = false;
+    endSubs = new Subject<void>();
 
-            this.auth.login(email, password).subscribe({
-                next: () => {
-                    this.isLoggedIn = true;
-                    this.router.navigate(['/home']);
-                },
-                error: (error) => {
-                    this.translate
-                        .get(error.message)
-                        .subscribe((translatedError: string) => {
-                            this.error = translatedError;
-                            this.cdr.detectChanges();
-                            this.messageService.add({
-                                severity: 'error',
-                                summary: this.translate.instant(
-                                    'TOAST_MESSAGE.error'
-                                ),
-                                detail: translatedError,
-                            });
-                        });
-                },
+    ngOnInit(): void {
+        this.googleS.isLoggedInFromGoogle$
+            .pipe(takeUntil(this.endSubs))
+            .subscribe((isLoggedIn) => {
+                if (isLoggedIn) this.router.navigate(['/home']);
             });
-        } else {
-            this.translate
-                .get(['TOAST_MESSAGE.error', 'TOAST_MESSAGE.fillForm'])
-                .pipe(takeUntil(this.endSubs))
-                .subscribe((translations) => {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: translations['TOAST_MESSAGE.error'],
-                        detail: translations['TOAST_MESSAGE.fillForm'],
-                    });
-                });
-        }
     }
 
-    router = inject(Router);
-    switchToLogin() {
-        this.logIn = true;
-        this.router.navigate(['/auth/login']);
+    /* ---------- Validation (template helpers) ---------- */
+    get emailError(): string | null {
+        return this.submitted ? firstErrorKey(this.form.controls.email) : null;
     }
 
-    get email() {
-        return this.form.value.email;
+    get passwordError(): string | null {
+        return this.submitted
+            ? firstErrorKey(this.form.controls.password)
+            : null;
     }
 
-    cancelError() {
+    get resetEmailError(): string | null {
+        return this.resetEmail.touched
+            ? firstErrorKey(this.resetEmail)
+            : null;
+    }
+
+    /* ---------- Actions ---------- */
+    submit() {
+        this.submitted = true;
         this.error = null;
-    }
 
-    authWgoo() {
-        if (!this.isGoogleInitialized) {
-            this.translate
-                .get('TOAST_MESSAGE.googleNotInitialized')
-                .pipe(takeUntil(this.endSubs))
-                .subscribe((translatedError: string) => {
-                    this.error = translatedError;
-                    this.cdr.detectChanges();
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: this.translate.instant('TOAST_MESSAGE.error'),
-                        detail: translatedError,
-                    });
-                });
+        if (this.form.invalid) {
+            this.form.markAllAsTouched();
+            this.toast('error', 'TOAST_MESSAGE.fillForm');
             return;
         }
 
+        const { email, password } = this.form.getRawValue();
+        this.isLoading = true;
+
+        this.auth
+            .login(email, password)
+            .pipe(takeUntil(this.endSubs), finalize(() => (this.isLoading = false)))
+            .subscribe({
+                next: () => this.router.navigate(['/home']),
+                error: (err) => this.showServerError(err?.message),
+            });
+    }
+
+    signInWithGoogle() {
         this.googleS.signInWithGoogle().subscribe({
-            next: (user) => { },
+            error: () =>
+                this.toast('error', 'TOAST_MESSAGE.googleSignInError'),
         });
     }
 
-    /* ****************Reset Password Section***************** */
-
-    visible: boolean = false;
-
-    showDialog() {
-        this.visible = true;
+    /* ---------- Reset password dialog ---------- */
+    openResetDialog() {
+        this.resetEmail.markAsUntouched();
+        this.visibleDialog = true;
     }
 
     resetPassword() {
-        if (this.resetEmail.invalid) {
-            this.resetEmail.markAsTouched();
-            return;
-        }
+        this.resetEmail.markAsTouched();
+        if (this.resetEmail.invalid) return;
 
-        const email = this.resetEmail.value;
+        const email = this.resetEmail.getRawValue();
+        this.isResetting = true;
+
         this.auth
             .forgotPassword(email)
             .pipe(
-                switchMap(() => {
-                    this.visible = false;
-                    this.resetEmail.reset();
-                    return this.translate.get([
-                        'TOAST_MESSAGE.success',
-                        'TOAST_MESSAGE.emailSent',
-                    ]);
-                }),
-                tap((translations) => {
-                    this.messageService.add({
-                        severity: 'success',
-                        summary: translations['TOAST_MESSAGE.success'],
-                        detail: translations['TOAST_MESSAGE.emailSent'],
-                    });
-                }),
-                takeUntil(this.endSubs)
+                takeUntil(this.endSubs),
+                finalize(() => (this.isResetting = false))
             )
-            .subscribe({});
+            .subscribe({
+                next: () => {
+                    this.visibleDialog = false;
+                    this.resetEmail.reset();
+                    this.toast(
+                        'success',
+                        'TOAST_MESSAGE.emailSent',
+                        'TOAST_MESSAGE.success'
+                    );
+                },
+                error: (err) =>
+                    this.showServerError(
+                        err?.message ?? 'ERROR_MESSAGES.UNKNOWN_ERROR'
+                    ),
+            });
+    }
+
+    /* ---------- Helpers ---------- */
+    private showServerError(message: string | undefined) {
+        const key = message || 'ERROR_MESSAGES.UNKNOWN_ERROR';
+        this.translate
+            .get(['TOAST_MESSAGE.error', key])
+            .pipe(takeUntil(this.endSubs))
+            .subscribe((translations) => {
+                this.error = translations[key];
+                this.messageService.add({
+                    severity: 'error',
+                    summary: translations['TOAST_MESSAGE.error'],
+                    detail: translations[key],
+                });
+            });
+    }
+
+    private toast(
+        severity: 'error' | 'success',
+        detailKey: string,
+        summaryKey: string = 'TOAST_MESSAGE.error'
+    ) {
+        this.translate
+            .get([summaryKey, detailKey])
+            .pipe(takeUntil(this.endSubs))
+            .subscribe((translations) => {
+                this.messageService.add({
+                    severity,
+                    summary: translations[summaryKey],
+                    detail: translations[detailKey],
+                });
+            });
     }
 
     ngOnDestroy(): void {

@@ -219,7 +219,7 @@ export class AuthService {
             authData.photoUrl
         );
 
-        this.user.next(user);
+        this.user.next(user); 
         this.setupAutoLogout(expirationDate);
         this.setupTokenRefresh(expirationDate);
 
