@@ -15,7 +15,7 @@
 
 ## Demo
 
-**Live:** [https://exclusive-e-store.netlify.app/](https://exclusive-e-store.netlify.app/)
+**Live:** [https://premium-commerce.runasp.net](https://premium-commerce.runasp.net)
 
 ---
 
