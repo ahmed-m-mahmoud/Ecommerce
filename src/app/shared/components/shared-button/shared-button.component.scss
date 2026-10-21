@@ -1,13 +1,41 @@
 @import '../../../../assets/styles/premium';
 
 .shared__btn {
-    @include btn-premium($gradient-primary);
-    padding: 0.75rem 2.5rem;
-    font-size: 1rem;
-    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 2.25rem;
+    border: 1.5px solid rgba(99, 102, 241, 0.35);
+    border-radius: $radius-full;
+    background: transparent;
+    color: $premium-primary;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    i {
+        font-size: 0.8rem;
+        transition: transform $transition-base;
+    }
 
     &:hover {
+        background: rgba(99, 102, 241, 0.06);
+        border-color: $premium-primary;
         transform: translateY(-2px);
-        box-shadow: $shadow-colored;
+        box-shadow: 0 10px 24px rgba(99, 102, 241, 0.16);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+// Flip the chevron for RTL so it keeps its meaning
+:host-context([dir='rtl']),
+:host-context(html[lang='ar']) {
+    .shared__btn i {
+        transform: rotate(90deg);
     }
 }

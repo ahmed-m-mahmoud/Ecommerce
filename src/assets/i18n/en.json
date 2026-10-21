@@ -144,7 +144,14 @@
         "COMPUTERS": "Computers",
         "HEADPHONES": "Headphones",
         "SMARTWATCHES": "Smartwatches",
-        "SHOP_NOW": "Shop Now"
+        "SMARTWATCHES": "Smartwatches",
+        "SHOP_NOW": "Shop Now",
+        "HERO_SUBTITLE": "Deals, new drops and everyday essentials — a curated shopping experience, delivered fast.",
+        "EXPLORE_DEALS": "Explore Deals",
+        "CHIP_FLASH_DEAL": "Flash sale · limited stock",
+        "CHIP_FREE_SHIP": "Free delivery over $140",
+        "NEWSLETTER_SUCCESS": "You're in! Your welcome offer is on its way to your inbox.",
+        "SUBSCRIBING": "Subscribing..."
     },
     "FOOTER": {
         "EStore": "EStore",
@@ -329,6 +336,7 @@
     "TOAST_MESSAGE": {
         "addToSavedItems": "Added to saved items",
         "addToWishlist": "Added to wishlist",
+        "addedToCart": "Added to cart",
         "cartUpdated": "Cart updated",
         "productAddedSuccessfully": "Product added successfully",
         "productAlreadyExists": "This product is already in your cart",
@@ -390,6 +398,8 @@
         "ADD_TO_WISHLIST": "Add to Wishlist",
         "REMOVE_FROM_WISHLIST": "Remove from Wishlist",
         "QUICK_VIEW": "Quick View",
+        "ADD_TO_CART": "Add to Cart",
+        "ADDING_TO_CART": "Adding...",
         "CANCEL": "Cancel",
         "VIEW_DETAILS": "View Details"
     },

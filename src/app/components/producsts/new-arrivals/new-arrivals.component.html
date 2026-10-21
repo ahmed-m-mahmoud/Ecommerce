@@ -1,105 +1,107 @@
 <section class="arrivals py-5">
     <div class="container">
         <div class="arrivals-surface">
-        <div class="row g-4">
-            <!-- PlayStation 5 Card -->
-            <div class="col-12 col-lg-6">
-                <div class="card arrival-card arrival-card-feature arrival-card-playstation h-100 text-white overflow-hidden">
-                    <div class="row g-0 h-100">
-                        <div class="col-md-6 d-flex align-items-center justify-content-center arrival-media">
-                            <img
-                                src="assets/images/ps5-slim-goedkope-playstation_large 1.png"
-                                class="img-fluid"
-                                alt="PlayStation 5"
-                            />
-                        </div>
-                        <div class="col-md-6 d-flex align-items-center">
-                            <div class="card-body arrival-body">
-                                <h5 class="card-title">{{ 'HOME.PLAYSTATION_5' | translate }}</h5>
-                                <p class="card-text">
-                                    {{ 'HOME.PS5_DESC' | translate }}
-                                </p>
-                                <a class="btn arrival-link" routerLink="/products">{{ 'HOME.SHOP_NOW' | translate }}</a>
+            <div class="row g-4">
+                <!-- PlayStation 5 Card -->
+                <div class="col-12 col-lg-6">
+                    <div class="card arrival-card arrival-card-feature arrival-card-playstation h-100 text-white overflow-hidden">
+                        <div class="row g-0 h-100">
+                            <div class="col-md-6 d-flex align-items-center justify-content-center arrival-media">
+                                <img
+                                    src="assets/images/ps5-slim-goedkope-playstation_large 1.png"
+                                    class="img-fluid"
+                                    alt="PlayStation 5"
+                                />
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <div class="card-body arrival-body">
+                                    <h5 class="card-title">{{ 'HOME.PLAYSTATION_5' | translate }}</h5>
+                                    <p class="card-text">
+                                        {{ 'HOME.PS5_DESC' | translate }}
+                                    </p>
+                                    <a class="btn arrival-link" routerLink="/products">
+                                        {{ 'HOME.SHOP_NOW' | translate }}
+                                        <i class="pi pi-arrow-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-12 col-lg-6">
-                <div class="row g-4">
-                    <!-- Men's Collections Card -->
-                    <div class="col-12">
-                        <div class="card arrival-card arrival-card-wide arrival-card-mens text-white overflow-hidden">
-                            <div class="row g-0">
-                                <div class="col-md-6 d-flex align-items-center">
-                                    <div class="card-body arrival-body">
-                                        <h5 class="card-title">
-                                            {{ 'HOME.MENS_COLLECTIONS' | translate }}
-                                        </h5>
-                                        <p class="card-text">
-                                            {{ 'HOME.MENS_COLLECTIONS_DESC' | translate }}
-                                        </p>
-                                        <a class="btn arrival-link"
-                                           routerLink="/products"
-                                            >{{ 'HOME.SHOP_NOW' | translate }}</a
-                                        >
+                <div class="col-12 col-lg-6">
+                    <div class="row g-4">
+                        <!-- Men's Collections Card -->
+                        <div class="col-12">
+                            <div class="card arrival-card arrival-card-wide arrival-card-mens text-white overflow-hidden">
+                                <div class="row g-0">
+                                    <div class="col-md-6 d-flex align-items-center">
+                                        <div class="card-body arrival-body">
+                                            <h5 class="card-title">
+                                                {{ 'HOME.MENS_COLLECTIONS' | translate }}
+                                            </h5>
+                                            <p class="card-text">
+                                                {{ 'HOME.MENS_COLLECTIONS_DESC' | translate }}
+                                            </p>
+                                            <a class="btn arrival-link" routerLink="/products">
+                                                {{ 'HOME.SHOP_NOW' | translate }}
+                                                <i class="pi pi-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 text-center arrival-media">
+                                        <img
+                                            src="../../../../assets/images/mens.png"
+                                            class="img-fluid"
+                                            alt="Men's Collections"
+                                        />
                                     </div>
                                 </div>
-                                <div class="col-md-6 text-center arrival-media">
+                            </div>
+                        </div>
+
+                        <!-- Speakers Card -->
+                        <div class="col-12 col-sm-6">
+                            <div class="card arrival-card arrival-card-mini arrival-card-speakers text-white h-100">
+                                <div class="card-body arrival-body d-flex flex-column">
                                     <img
-                                        style="height: 15rem"
-                                        src="../../../../assets/images/mens.png"
-                                        class="img-fluid"
-                                        alt="Men's Collections"
+                                        src="assets/images/69-694768_amazon-echo-png-clipart-transparent-amazon-echo-png 1.png"
+                                        class="img-fluid mb-3 arrival-media"
+                                        alt="Amazon Echo"
                                     />
+                                    <h5 class="card-title">{{ 'HOME.SPEAKERS' | translate }}</h5>
+                                    <p class="card-text">
+                                        {{ 'HOME.AMAZON_SPEAKERS_DESC' | translate }}
+                                    </p>
+                                    <a class="btn arrival-link mt-auto" routerLink="/products">
+                                        {{ 'HOME.SHOP_NOW' | translate }}
+                                        <i class="pi pi-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Speakers Card -->
-                    <div class="col-12 col-sm-6">
-                        <div class="card arrival-card arrival-card-mini arrival-card-speakers text-white h-100">
-                            <div class="card-body arrival-body d-flex flex-column">
-                                <img
-                                    src="assets/images/69-694768_amazon-echo-png-clipart-transparent-amazon-echo-png 1.png"
-                                    class="img-fluid mb-3 arrival-media"
-                                    alt="Amazon Echo"
-                                />
-                                <h5 class="card-title">{{ 'HOME.SPEAKERS' | translate }}</h5>
-                                <p class="card-text">
-                                    {{ 'HOME.AMAZON_SPEAKERS_DESC' | translate }}
-                                </p>
-                                <a class="btn arrival-link mt-auto"
-                                    routerLink="/products"
-                                    >{{ 'HOME.SHOP_NOW' | translate }}</a
-                                >
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Perfume Card -->
-                    <div class="col-12 col-sm-6">
-                        <div class="card arrival-card arrival-card-mini arrival-card-perfume text-white h-100">
-                            <div class="card-body arrival-body d-flex flex-column">
-                                <img
-                                    src="assets/images/652e82cd70aa6522dd785109a455904c.png"
-                                    class="img-fluid mb-3 arrival-media"
-                                    alt="Gucci Perfume"
-                                />
-                                <h5 class="card-title">{{ 'HOME.PERFUME' | translate }}</h5>
-                                <p class="card-text">{{ 'HOME.GUCCI_PERFUME_DESC' | translate }}</p>
-                                <a class="btn arrival-link mt-auto"
-                                    routerLink="/products"
-                                    >{{ 'HOME.SHOP_NOW' | translate }}</a
-                                >
+                        <!-- Perfume Card -->
+                        <div class="col-12 col-sm-6">
+                            <div class="card arrival-card arrival-card-mini arrival-card-perfume text-white h-100">
+                                <div class="card-body arrival-body d-flex flex-column">
+                                    <img
+                                        src="assets/images/652e82cd70aa6522dd785109a455904c.png"
+                                        class="img-fluid mb-3 arrival-media"
+                                        alt="Gucci Perfume"
+                                    />
+                                    <h5 class="card-title">{{ 'HOME.PERFUME' | translate }}</h5>
+                                    <p class="card-text">{{ 'HOME.GUCCI_PERFUME_DESC' | translate }}</p>
+                                    <a class="btn arrival-link mt-auto" routerLink="/products">
+                                        {{ 'HOME.SHOP_NOW' | translate }}
+                                        <i class="pi pi-arrow-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 </section>

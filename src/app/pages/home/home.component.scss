@@ -1,29 +1,67 @@
+@import '../../../assets/styles/premium';
+
+// ============================================
+// HOME — PAGE SHELL
+// Consistent section rhythm across the page
+// ============================================
 :host {
   display: block;
   width: 100%;
   overflow-x: hidden;
 }
 
-@import '../../../assets/styles/premium';
+.home-section {
+  padding: 4rem 0 4.5rem;
 
-// Hero Section (Premium Landing)
+  @media (max-width: 768px) {
+    padding: 3rem 0 3.5rem;
+  }
+
+  &--white {
+    background: #ffffff;
+  }
+
+  &--soft {
+    background: linear-gradient(180deg, #f8fafc 0%, #f4f6fb 100%);
+  }
+}
+
+.load-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.75rem;
+}
+
+app-categories {
+  display: block;
+  margin-top: 1.25rem;
+}
+
+.container-premium {
+  padding: 0 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+// ============================================
+// HERO
+// ============================================
 .hero-section {
   position: relative;
   padding: 2rem 0 3rem;
   background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 45%, #f9fafb 100%);
   min-height: auto;
-
-  &::before {
-    display: none; // Remove old background effect
-  }
 }
 
 .hero-banner-card {
+  display: flex;
+  align-items: center;
   background:
     radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.04) 22%, transparent 45%),
     radial-gradient(circle at 82% 18%, rgba($premium-success, 0.18) 0%, rgba($premium-success, 0.03) 24%, transparent 48%),
+    radial-gradient(circle at 60% 110%, rgba($premium-primary, 0.14) 0%, transparent 50%),
     linear-gradient(135deg, #1f2937 0%, #111827 58%, #0f172a 100%);
-  border-radius: $radius-xl;
+  border-radius: 1.75rem;
   overflow: hidden;
   position: relative;
   isolation: isolate;
@@ -57,6 +95,7 @@
   @media (max-width: 991px) {
     padding: 3rem 1.5rem;
     text-align: center;
+    min-height: 420px;
   }
 }
 
@@ -67,7 +106,7 @@
 }
 
 .hero-content {
-  max-width: 560px;
+  max-width: 580px;
 }
 
 .hero-badge {
@@ -90,8 +129,47 @@
   }
 }
 
+.hero-subtitle {
+  color: rgba(226, 232, 240, 0.78);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 30rem;
+  margin-inline-start: auto;
+
+  @media (min-width: 992px) {
+    margin-inline-start: 0;
+  }
+}
+
 .gradient-text-warm {
   @include gradient-text(linear-gradient(135deg, #facc15 0%, #fb923c 45%, #fb7185 100%));
+}
+
+.hero-secondary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: rgba(226, 232, 240, 0.88);
+  font-weight: 600;
+  font-size: 0.98rem;
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.25);
+  transition: color $transition-base, border-color $transition-base;
+
+  i {
+    font-size: 0.85rem;
+    transition: transform $transition-base;
+  }
+
+  &:hover {
+    color: #ecfdf5;
+    border-color: rgba(255, 255, 255, 0.6);
+
+    i {
+      transform: translateX(3px);
+    }
+  }
 }
 
 .hero-glow {
@@ -113,7 +191,7 @@
   position: relative;
   z-index: 1;
   filter: drop-shadow(0 28px 48px rgba(15, 23, 42, 0.55));
-  max-width: 120%; // Allow slight overflow for impact
+  max-width: 120%;
   transform: scale(1.08) rotate(-5deg);
   transition: transform 0.5s ease, filter 0.5s ease;
 
@@ -146,10 +224,74 @@
   }
 }
 
+// Floating story chips over the hero image
+.float-chip {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 1rem;
+  border-radius: $radius-full;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.07) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.28);
+  animation: chip-float 6s ease-in-out infinite;
+
+  i {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+  }
+
+  &--deal {
+    top: 14%;
+    inset-inline-start: 12%;
+
+    i {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+    }
+  }
+
+  &--ship {
+    bottom: 12%;
+    inset-inline-end: 8%;
+    animation-delay: -3s;
+
+    i {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+  }
+
+  @media (max-width: 991px) {
+    display: none;
+  }
+}
+
+@keyframes chip-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-chip {
+    animation: none;
+  }
+}
+
 .timer-container {
   flex-wrap: wrap;
 }
 
+// Timer chips (dark glass over the hero)
 :host ::ng-deep app-timer-digit.timer-dark {
   .timer-digit-container {
     width: 74px;
@@ -175,41 +317,34 @@
   }
 }
 
-.container-premium {
-  padding: 0 1rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.bg-light-premium {
-  background: #f9fafb;
-}
-
-.promo-banner {
-  box-shadow: $shadow-lg;
-  transition: transform $transition-base;
-
-  &:hover {
-    transform: translateY(-5px);
-  }
-}
-
-
-// Newsletter Section
+// ============================================
+// NEWSLETTER
+// ============================================
 .newsletter-card {
-  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
-  border-radius: $radius-xl;
-  box-shadow: $shadow-xl;
+  background:
+    radial-gradient(circle at 85% 10%, rgba($premium-primary, 0.28) 0%, rgba($premium-primary, 0) 42%),
+    radial-gradient(circle at 8% 92%, rgba($premium-secondary, 0.18) 0%, rgba($premium-secondary, 0) 40%),
+    linear-gradient(135deg, #111827 0%, #1e1b4b 58%, #312e81 100%);
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 70px rgba(15, 23, 42, 0.28);
   min-height: 350px;
   display: flex;
   align-items: center;
 
   .newsletter-form {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     padding: 0.5rem;
     border-radius: $radius-lg;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     backdrop-filter: blur(10px);
+    transition: border-color $transition-base, background $transition-base, box-shadow $transition-base;
+
+    &:focus-within {
+      border-color: rgba($premium-primary, 0.55);
+      background: rgba(255, 255, 255, 0.11);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
+    }
 
     input {
       background: transparent;
@@ -226,13 +361,36 @@
     }
   }
 
+  .newsletter-error {
+    color: #fda4af;
+    font-size: 0.82rem;
+  }
+
+  .newsletter-success {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.9rem 1.25rem;
+    border-radius: $radius-lg;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #d1fae5;
+    font-weight: 600;
+    animation: scaleIn 0.3s ease-out forwards;
+
+    i {
+      font-size: 1.5rem;
+      color: $premium-success;
+    }
+  }
+
   .glow-effect {
     position: absolute;
     top: -50%;
     right: -20%;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba($premium-primary, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+    background: radial-gradient(circle, rgba($premium-primary, 0.22) 0%, rgba(0, 0, 0, 0) 70%);
     border-radius: 50%;
     pointer-events: none;
   }
@@ -250,15 +408,25 @@
   }
 }
 
-// Ensure categories use grid gap
-app-categories {
-  display: block;
-  margin-top: 1rem;
+.newsletter-wrap {
+  padding-top: 4rem;
+  padding-bottom: 5.5rem;
 }
 
+// ============================================
+// DARK MODE
+// ============================================
 :host-context(body.dark) {
   .hero-section {
     background: linear-gradient(180deg, #020617 0%, #0f172a 42%, #111827 100%) !important;
+  }
+
+  .home-section--soft {
+    background: linear-gradient(180deg, #0b1220 0%, #101828 100%) !important;
+  }
+
+  .home-section--white {
+    background: #0f1720 !important;
   }
 
   .hero-banner-card {
@@ -295,6 +463,11 @@ app-categories {
     filter: drop-shadow(0 36px 64px rgba(0, 0, 0, 0.62)) saturate(1.05) brightness(1.03);
   }
 
+  .float-chip {
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.45) 100%);
+    border-color: rgba(148, 163, 184, 0.24);
+  }
+
   ::ng-deep app-timer-digit.timer-dark {
     .timer-digit-container {
       background: linear-gradient(180deg, rgba(15, 23, 42, 0.82) 0%, rgba(15, 23, 42, 0.54) 100%);
@@ -306,8 +479,19 @@ app-categories {
       color: rgba(226, 232, 240, 0.74) !important;
     }
   }
+
+  .newsletter-card {
+    background:
+      radial-gradient(circle at 85% 10%, rgba($premium-primary, 0.32) 0%, rgba($premium-primary, 0) 42%),
+      radial-gradient(circle at 8% 92%, rgba($premium-secondary, 0.22) 0%, rgba($premium-secondary, 0) 40%),
+      linear-gradient(135deg, #0b1220 0%, #16123a 58%, #241f5e 100%);
+    border-color: rgba(148, 163, 184, 0.14);
+  }
 }
 
+// ============================================
+// RTL
+// ============================================
 :host-context(html[lang='ar']),
 :host-context([dir='rtl']) {
   .hero-content {
@@ -327,9 +511,5 @@ app-categories {
   .gradient-text-warm {
     display: inline-block;
     margin-top: 0.15rem;
-  }
-
-  .timer-container {
-    justify-content: flex-start;
   }
 }

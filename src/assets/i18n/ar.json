@@ -144,7 +144,14 @@
         "COMPUTERS": "أجهزة الكمبيوتر",
         "HEADPHONES": "السماعات",
         "SMARTWATCHES": "الساعات الذكية",
-        "SHOP_NOW": "تسوّق الآن"
+        "SMARTWATCHES": "الساعات الذكية",
+        "SHOP_NOW": "تسوّق الآن",
+        "HERO_SUBTITLE": "عروض ووصل حديثًا وضروريات يومية — تجربة تسوق مختارة بعناية وتوصيل سريع.",
+        "EXPLORE_DEALS": "استكشف العروض",
+        "CHIP_FLASH_DEAL": "عرض خاطف · كمية محدودة",
+        "CHIP_FREE_SHIP": "توصيل مجاني للطلبات فوق 140$",
+        "NEWSLETTER_SUCCESS": "تم الاشتراك بنجاح! عرض الترحيب في طريقه إلى بريدك الإلكتروني.",
+        "SUBSCRIBING": "جارٍ الاشتراك..."
     },
     "FOOTER": {
         "EStore": "EStore",
@@ -329,6 +336,7 @@
     "TOAST_MESSAGE": {
         "addToSavedItems": "تمت الإضافة إلى العناصر المحفوظة",
         "addToWishlist": "تمت الإضافة إلى المفضلة",
+        "addedToCart": "تمت الإضافة إلى السلة",
         "cartUpdated": "تم تحديث السلة",
         "productAddedSuccessfully": "تمت إضافة المنتج بنجاح",
         "productAlreadyExists": "هذا المنتج موجود بالفعل في سلتك",
@@ -390,6 +398,8 @@
         "ADD_TO_WISHLIST": "أضف إلى المفضلة",
         "REMOVE_FROM_WISHLIST": "إزالة من المفضلة",
         "QUICK_VIEW": "عرض سريع",
+        "ADD_TO_CART": "إضافة إلى السلة",
+        "ADDING_TO_CART": "جارٍ الإضافة...",
         "CANCEL": "إلغاء",
         "VIEW_DETAILS": "عرض التفاصيل"
     },

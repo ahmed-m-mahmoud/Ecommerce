@@ -1,63 +1,52 @@
 <section class="category-item p-0 m-0">
     <div
-        class="card d-flex align-items-center justify-content-center flex-column"
+        class="tile"
         [routerLink]="['/products']"
         [queryParams]="queryParams"
         routerLinkActive="active"
     >
-        <div class="card-body">
-            <div class="icon">
-                <svg
-                    width="56"
-                    height="56"
-                    viewBox="0 0 56 56"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <g clip-path="url(#clip0_2_880)">
-                        <path
-                            d="M38.9375 6.125H17.0625C15.5523 6.125 14.3281 7.34922 14.3281 8.85938V47.1406C14.3281 48.6508 15.5523 49.875 17.0625 49.875H38.9375C40.4477 49.875 41.6719 48.6508 41.6719 47.1406V8.85938C41.6719 7.34922 40.4477 6.125 38.9375 6.125Z"
-                            stroke="black"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                        <path
-                            d="M25.6667 7H31.1354"
-                            stroke="black"
-                            stroke-width="3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                        <path
-                            d="M28 44.0052V44.0305"
-                            stroke="black"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                        <line
-                            x1="15.1667"
-                            y1="39.8334"
-                            x2="40.8333"
-                            y2="39.8334"
-                            stroke="black"
-                            stroke-width="2"
-                        />
-                    </g>
-                    <defs>
-                        <clipPath id="clip0_2_880">
-                            <rect width="56" height="56" fill="white" />
-                        </clipPath>
-                    </defs>
-                </svg>
-            </div>
+        <div class="tile__icon">
+            @switch (icon) {
+                @case ('phones') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="7" y="2.5" width="10" height="19" rx="2.4" />
+                        <path d="M10.5 3.8h3" />
+                        <path d="M12 18.6v.03" />
+                        <path d="M7 17h10" />
+                    </svg>
+                }
+                @case ('computers') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3.5" y="4.5" width="17" height="11.5" rx="1.6" />
+                        <path d="M2 19h20" />
+                        <path d="M10.2 19v-.5a1.8 1.8 0 0 1 3.6 0v.5" />
+                    </svg>
+                }
+                @case ('headphones') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 14.5v-2.2a8 8 0 0 1 16 0v2.2" />
+                        <rect x="3.5" y="14" width="4.2" height="6.5" rx="2.1" />
+                        <rect x="16.3" y="14" width="4.2" height="6.5" rx="2.1" />
+                    </svg>
+                }
+                @case ('smartwatches') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="7" y="6.5" width="10" height="11" rx="3" />
+                        <path d="M9.5 6.5 9 2.5h6l-.5 4" />
+                        <path d="M9.5 17.5 9 21.5h6l-.5-4" />
+                        <path d="M12.8 11.05v2.9" />
+                        <path d="M11.2 11.05v2.9" />
+                    </svg>
+                }
+            }
+        </div>
 
-            <div class="text">
-                <p>
-                    <ng-content select="[title]"> </ng-content>
-                </p>
-            </div>
+        <div class="tile__label">
+            <ng-content select="[title]"> </ng-content>
+        </div>
+
+        <div class="tile__go" aria-hidden="true">
+            <i class="pi pi-arrow-right"></i>
         </div>
     </div>
 </section>

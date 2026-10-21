@@ -1,12 +1,15 @@
-<button class="shared__btn" (click)="onClick()">
+<button
+  class="shared__btn"
+  type="button"
+  (click)="onClick()"
+  [attr.aria-label]="(allLoaded && !allLoadedAndOneSection ? 'HOME.SHOW_LESS' : 'HOME.LOAD_MORE') | translate"
+>
+  <span class="shared__btn-label">
     @if (allLoaded && !allLoadedAndOneSection) {
-        {{ 'HOME.SHOW_LESS' | translate }}
-    } @else if (
-        (!allLoaded && !allLoadedAndOneSection) ||
-        (allLoaded && allLoadedAndOneSection)
-    ) {
-        {{ 'HOME.LOAD_MORE' | translate }}
-    } @else if (allLoaded && allLoadedAndOneSection) {
-        {{ 'HOME.LOAD_MORE' | translate }}
+      {{ 'HOME.SHOW_LESS' | translate }}
+    } @else {
+      {{ 'HOME.LOAD_MORE' | translate }}
     }
+  </span>
+  <i class="pi" [class.pi-chevron-up]="allLoaded && !allLoadedAndOneSection" [class.pi-chevron-down]="!(allLoaded && !allLoadedAndOneSection)"></i>
 </button>

@@ -1,15 +1,29 @@
 @import '../../../../assets/styles/premium';
 
 .arrivals {
+    font-family: Inter;
     background: transparent;
+    padding-top: 0.25rem !important; // Section wrapper already gives rhythm
 
     .arrivals-surface {
         border-radius: $radius-xl;
         padding: 1rem;
         background:
-            radial-gradient(circle at 12% 12%, rgba($premium-primary, 0.08) 0%, rgba($premium-primary, 0) 30%),
-            radial-gradient(circle at 88% 88%, rgba($premium-success, 0.08) 0%, rgba($premium-success, 0) 28%),
-            linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.66) 100%);
+            radial-gradient(
+                circle at 12% 12%,
+                rgba($premium-primary, 0.08) 0%,
+                rgba($premium-primary, 0) 30%
+            ),
+            radial-gradient(
+                circle at 88% 88%,
+                rgba($premium-success, 0.08) 0%,
+                rgba($premium-success, 0) 28%
+            ),
+            linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.82) 0%,
+                rgba(255, 255, 255, 0.66) 100%
+            );
         border: 1px solid rgba(148, 163, 184, 0.12);
         box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
     }
@@ -20,10 +34,17 @@
         overflow: hidden;
         min-height: 100%;
         background:
-            linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0)),
+            linear-gradient(
+                145deg,
+                rgba(255, 255, 255, 0.06),
+                rgba(255, 255, 255, 0)
+            ),
             linear-gradient(135deg, #111827 0%, #1f2937 55%, #0f172a 100%);
         box-shadow: 0 18px 40px rgba(15, 23, 42, 0.24);
-        transition: transform $transition-base, box-shadow $transition-base, border-color $transition-base;
+        transition:
+            transform $transition-base,
+            box-shadow $transition-base,
+            border-color $transition-base;
 
         &:hover {
             transform: translateY(-6px);
@@ -61,13 +82,19 @@
             height: auto;
             object-fit: contain;
             filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.35));
+            transition: transform $transition-slow;
         }
+    }
+
+    .card:hover .arrival-media img {
+        transform: scale(1.06);
     }
 
     .card-title {
         font-weight: 800;
         font-size: 1.95rem;
         line-height: 1.15;
+        letter-spacing: -0.02em;
         margin-bottom: 0.75rem;
     }
 
@@ -80,6 +107,9 @@
     }
 
     .arrival-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
         border: 1px solid rgba(255, 255, 255, 0.24);
         border-radius: $radius-full;
         color: white;
@@ -87,37 +117,65 @@
         padding: 0.7rem 1.35rem !important;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        transition: transform $transition-base, background-color $transition-base, border-color $transition-base;
+        transition:
+            transform $transition-base,
+            background-color $transition-base,
+            border-color $transition-base;
+
+        i {
+            font-size: 0.85rem;
+            transition: transform $transition-base;
+        }
 
         &:hover {
             background: rgba(255, 255, 255, 0.12);
             border-color: rgba(255, 255, 255, 0.42);
             transform: translateY(-2px);
             color: white;
+
+            i {
+                transform: translateX(4px);
+            }
         }
     }
 
     .arrival-card-playstation {
         background:
-            radial-gradient(circle at 76% 22%, rgba($premium-primary, 0.22) 0%, rgba($premium-primary, 0) 28%),
+            radial-gradient(
+                circle at 76% 22%,
+                rgba($premium-primary, 0.22) 0%,
+                rgba($premium-primary, 0) 28%
+            ),
             linear-gradient(135deg, #0f172a 0%, #111827 42%, #111111 100%);
     }
 
     .arrival-card-mens {
         background:
-            radial-gradient(circle at 88% 18%, rgba(250, 204, 21, 0.14) 0%, rgba(250, 204, 21, 0) 24%),
+            radial-gradient(
+                circle at 88% 18%,
+                rgba(250, 204, 21, 0.14) 0%,
+                rgba(250, 204, 21, 0) 24%
+            ),
             linear-gradient(135deg, #161616 0%, #232323 100%);
     }
 
     .arrival-card-speakers {
         background:
-            radial-gradient(circle at 20% 16%, rgba($premium-info, 0.2) 0%, rgba($premium-info, 0) 28%),
+            radial-gradient(
+                circle at 20% 16%,
+                rgba($premium-info, 0.2) 0%,
+                rgba($premium-info, 0) 28%
+            ),
             linear-gradient(135deg, #121826 0%, #202939 100%);
     }
 
     .arrival-card-perfume {
         background:
-            radial-gradient(circle at 82% 16%, rgba(251, 146, 60, 0.18) 0%, rgba(251, 146, 60, 0) 25%),
+            radial-gradient(
+                circle at 82% 16%,
+                rgba(251, 146, 60, 0.18) 0%,
+                rgba(251, 146, 60, 0) 25%
+            ),
             linear-gradient(135deg, #1b1714 0%, #2f2820 100%);
     }
 }
@@ -163,15 +221,39 @@
     }
 }
 
+// RTL: flip the in-card directional arrows
+:host-context(html[lang='ar']),
+:host-context([dir='rtl']) {
+    .arrival-link i {
+        transform: scaleX(-1);
+    }
+
+    .arrival-link:hover i {
+        transform: scaleX(-1) translateX(4px);
+    }
+}
+
 :host-context(body.dark) {
     .arrivals {
         background: transparent !important;
 
         .arrivals-surface {
             background:
-                radial-gradient(circle at 12% 14%, rgba($premium-primary, 0.14) 0%, rgba($premium-primary, 0) 28%),
-                radial-gradient(circle at 84% 82%, rgba($premium-success, 0.14) 0%, rgba($premium-success, 0) 24%),
-                linear-gradient(180deg, rgba(2, 6, 23, 0.55) 0%, rgba(15, 23, 42, 0.3) 100%);
+                radial-gradient(
+                    circle at 12% 14%,
+                    rgba($premium-primary, 0.14) 0%,
+                    rgba($premium-primary, 0) 28%
+                ),
+                radial-gradient(
+                    circle at 84% 82%,
+                    rgba($premium-success, 0.14) 0%,
+                    rgba($premium-success, 0) 24%
+                ),
+                linear-gradient(
+                    180deg,
+                    rgba(2, 6, 23, 0.55) 0%,
+                    rgba(15, 23, 42, 0.3) 100%
+                );
             border-color: rgba(148, 163, 184, 0.12);
             box-shadow: 0 28px 60px rgba(0, 0, 0, 0.25);
         }

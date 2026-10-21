@@ -10,126 +10,124 @@
 */
 
 html {
-  scroll-behavior: smooth;
-  font-size: 16px;
+    scroll-behavior: smooth;
+    font-size: 16px;
 
-  // Apply Cairo font for Arabic or RTL languages
-  &[lang="ar"],
-  &[dir="rtl"] {
-    font-family: 'Cairo', sans-serif !important;
+    // Apply Cairo font for Arabic or RTL languages
+    &[lang='ar'],
+    &[dir='rtl'] {
+        font-family: 'Cairo', sans-serif !important;
 
-    body,
-    button,
-    input,
-    select,
-    textarea,
-    * {
-      font-family: 'Cairo', sans-serif !important;
+        body,
+        button,
+        input,
+        select,
+        textarea,
+        * {
+            font-family: 'Cairo', sans-serif !important;
+        }
+
+        // Fix Directional Icons
+        .pi-chevron-right,
+        .pi-arrow-right,
+        .pi-angle-right,
+        .pi-caret-right {
+            transform: rotate(180deg);
+        }
+
+        .pi-chevron-left,
+        .pi-arrow-left,
+        .pi-angle-left,
+        .pi-caret-left {
+            transform: rotate(180deg);
+        }
+
+        // BEGIN PROPOSED FIX
+        // Ensure Font Awesome icons use their correct font-family in RTL mode
+        .fa-solid {
+            font-family: 'Font Awesome 6 Free' !important;
+            font-weight: 900 !important; // For solid icons
+        }
+
+        .fa-regular {
+            font-family: 'Font Awesome 6 Free' !important;
+            font-weight: 400 !important;
+        }
+
+        .fa-brands {
+            font-family: 'Font Awesome 6 Brands' !important;
+            font-weight: 400 !important;
+        }
+
+        // BEGIN PROPOSED FIX for PrimeIcons
+        .pi {
+            font-family: 'PrimeIcons' !important;
+        }
+
+        // END PROPOSED FIX for PrimeIcons
+        // END PROPOSED FIX
     }
 
-    // Fix Directional Icons
-    .pi-chevron-right,
-    .pi-arrow-right,
-    .pi-angle-right,
-    .pi-caret-right {
-      transform: rotate(180deg);
-    }
+    overflow-x: hidden; // Prevent horizontal scrollbar from animations
+    width: 100%;
 
-    .pi-chevron-left,
-    .pi-arrow-left,
-    .pi-angle-left,
-    .pi-caret-left {
-      transform: rotate(180deg);
-    }
-
-    // BEGIN PROPOSED FIX
-    // Ensure Font Awesome icons use their correct font-family in RTL mode
-    .fa-solid {
-      font-family: "Font Awesome 6 Free" !important;
-      font-weight: 900 !important; // For solid icons
-    }
-
-    .fa-regular {
-      font-family: "Font Awesome 6 Free" !important;
-      font-weight: 400 !important;
-    }
-
-    .fa-brands {
-      font-family: "Font Awesome 6 Brands" !important;
-      font-weight: 400 !important;
-    }
-
-    // BEGIN PROPOSED FIX for PrimeIcons
-    .pi {
-      font-family: "PrimeIcons" !important;
-    }
-
-    // END PROPOSED FIX for PrimeIcons
-    // END PROPOSED FIX
-  }
-
-  overflow-x: hidden; // Prevent horizontal scrollbar from animations
-  width: 100%;
-
-  // @include respond(phone) {
-  //     font-size: 14px;
-  // }
+    // @include respond(phone) {
+    //     font-size: 14px;
+    // }
 }
 
 ::selection {
-  background-color: orangered;
-  color: #fff;
+    background-color: orangered;
+    color: #fff;
 }
 
 * {
-  scroll-behavior: smooth;
-  box-sizing: border-box !important;
+    scroll-behavior: smooth;
+    box-sizing: border-box !important;
 }
 
 body {
-  padding: 0 !important;
-  margin: 0 !important;
-  // transition: background-color 0.3s ease;
-  font-family: 'Inter', sans-serif;
+    padding: 0 !important;
+    margin: 0 !important;
+    // transition: background-color 0.3s ease;
+    font-family: 'Open Sans', sans-serif;
 
-  // Transparent background to reveal fixed footer behind main content
-  background: transparent;
-
+    // Transparent background to reveal fixed footer behind main content
+    background: transparent;
 }
 
 ul,
 a {
-  padding: 0 !important;
-  margin: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 a {
-  color: #000;
-  cursor: pointer;
+    color: #000;
+    cursor: pointer;
 }
 
 /*****************************End Global**********************************/
 .header-shared_routes {
+    span,
+    p {
+        line-height: 21px;
+        color: #000000;
+        font-size: 14px;
+        font-weight: 400;
+        font-family: var(--secondary-font), sans-serif;
+        cursor: pointer;
+        text-wrap: nowrap;
+    }
 
-  span,
-  p {
-    line-height: 21px;
-    color: #000000;
-    font-size: 14px;
-    font-weight: 400;
-    font-family: var(--secondary-font), sans-serif;
-    cursor: pointer;
-    text-wrap: nowrap;
-  }
+    span {
+        opacity: 0.5;
+    }
 
-  span {
-    opacity: 0.5;
-  }
-
-  p {
-    padding: 0;
-    margin-bottom: 0;
-  }
+    p {
+        padding: 0;
+        margin-bottom: 0;
+    }
 }
 
 $checkboxWidth: 20px;
@@ -142,418 +140,416 @@ $checkboxIconFontSize: 14px;
 $checkboxIconActiveColor: #ffffff;
 
 .modal-open {
-  overflow: auto !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  margin-right: 0 !important;
+    overflow: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-right: 0 !important;
 }
 
 .image-preview-modal .modal-dialog {
-  max-width: 100%;
-  margin: 0 !important;
+    max-width: 100%;
+    margin: 0 !important;
 }
 
 .image-preview-modal .modal-content {
-  height: 100vh;
-  border: none;
-  border-radius: 0;
+    height: 100vh;
+    border: none;
+    border-radius: 0;
 }
 
 .container {
-  max-width: 1600px !important;
+    max-width: 1600px !important;
 }
 
 // Toast messages
 body .p-toast-container {
-  z-index: 1000000 !important;
+    z-index: 1000000 !important;
 }
 
 body .p-toast-message {
-  z-index: 1000001 !important;
+    z-index: 1000001 !important;
 }
 
 body .p-toast {
-  position: fixed !important;
-  top: 20px !important;
-  right: 20px !important;
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
 }
 
 body .p-component-overlay,
 body .p-dialog-mask,
 body .p-sidebar-mask {
-  z-index: 999999 !important;
+    z-index: 999999 !important;
 }
 
 // footer input placeholder color
 footer {
-  input {
-    &::placeholder {
-      color: #fff !important;
+    input {
+        &::placeholder {
+            color: #fff !important;
+        }
     }
-  }
 }
 
 // register area form
 .register {
-  .rgstr-area {
-    @media only screen and (max-width: 900px) {
-      height: auto;
-      width: 100%;
-      padding-top: 1.6rem;
-      max-width: 100%;
-      display: grid !important;
-      place-content: center;
+    .rgstr-area {
+        @media only screen and (max-width: 900px) {
+            height: auto;
+            width: 100%;
+            padding-top: 1.6rem;
+            max-width: 100%;
+            display: grid !important;
+            place-content: center;
+        }
     }
-  }
 }
 
 .register__btn {
-  @media screen and (max-width: 950px) {
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-
-  button,
-  a {
     @media screen and (max-width: 950px) {
-      width: 100%;
-      flex: 1 1 auto;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
-  }
+
+    button,
+    a {
+        @media screen and (max-width: 950px) {
+            width: 100%;
+            flex: 1 1 auto;
+        }
+    }
 }
 
-
-
 .contact {
-  @media only screen and (max-width: 900px) {
-
-    .card-section,
-    .form-section-col {
-      width: 100%;
-      flex: 1 1 auto;
-      justify-content: center !important;
-      margin: 0 auto 3rem auto !important;
+    @media only screen and (max-width: 900px) {
+        .card-section,
+        .form-section-col {
+            width: 100%;
+            flex: 1 1 auto;
+            justify-content: center !important;
+            margin: 0 auto 3rem auto !important;
+        }
     }
-  }
 }
 
 .p-toast.p-component {
-  z-index: 999999999999999999999999 !important;
+    z-index: 999999999999999999999999 !important;
 }
 
 .register {
-  .error-message {
-    margin-inline-end: 1rem !important;
-    margin-inline-start: 1rem !important;
-    margin-inline: 3rem !important;
-  }
+    .error-message {
+        margin-inline-end: 1rem !important;
+        margin-inline-start: 1rem !important;
+        margin-inline: 3rem !important;
+    }
 }
 
 @media (max-width: 991px) {
-  .product {
-    .button-container {
-      button {
-        padding: 0.5rem !important;
-        margin-inline: 0.5rem !important;
-      }
+    .product {
+        .button-container {
+            button {
+                padding: 0.5rem !important;
+                margin-inline: 0.5rem !important;
+            }
+        }
     }
-  }
 }
 
 .stars-line {
-  z-index: 998 !important;
+    z-index: 998 !important;
 }
 
 // ============================================
 // DARK MODE GLOBAL OVERRIDES
 // ============================================
 body.dark {
-  background-color: #111827 !important;
-  color: #f9fafb !important;
-
-  // Home Page Backgrounds
-  .hero-section,
-  .bg-light-premium {
     background-color: #111827 !important;
-  }
+    color: #f9fafb !important;
 
-  // Cards (Bootstrap/Global) & Feature Containers
-  .card,
-  .contact-card,
-  .contact-form-card,
-  .dashboard-sidebar,
-  .delivery-info,
-  .actions-card,
-  .cart-item,
-  .order,
-  .wishlist-container,
-  .edit-profile-card {
-    background-color: rgba(31, 41, 55, 0.6) !important;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    color: white !important;
+    // Home Page Backgrounds
+    .hero-section,
+    .bg-light-premium {
+        background-color: #111827 !important;
+    }
 
-    .card-body {
-      color: #e5e7eb !important;
+    // Cards (Bootstrap/Global) & Feature Containers
+    .card,
+    .contact-card,
+    .contact-form-card,
+    .dashboard-sidebar,
+    .delivery-info,
+    .actions-card,
+    .cart-item,
+    .order,
+    .wishlist-container,
+    .edit-profile-card {
+        background-color: rgba(31, 41, 55, 0.6) !important;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        color: white !important;
 
-      // Explicitly target headings and labels to force them white
-      .card-title,
-      h3,
-      h4,
-      h5,
-      h6,
-      label {
-        color: #f9fafb !important;
-        text-decoration: none;
+        .card-body {
+            color: #e5e7eb !important;
+
+            // Explicitly target headings and labels to force them white
+            .card-title,
+            h3,
+            h4,
+            h5,
+            h6,
+            label {
+                color: #f9fafb !important;
+                text-decoration: none;
+
+                &:hover {
+                    color: #8b5cf6 !important;
+                }
+            }
+
+            // Edit Profile specific label override
+            .form-group label {
+                color: white !important;
+            }
+
+            .text-muted {
+                color: #9ca3af !important;
+            }
+
+            .card-text {
+                color: #e5e7eb !important;
+            }
+        }
+
+        // Specific children overrides matching user request
+        .contact-title,
+        .form-title,
+        .contact-text {
+            color: white !important;
+        }
+
+        // Sidebar headers
+        .section-title {
+            color: #9ca3af !important;
+        }
+
+        // Cart/Order specifics
+        .order__price,
+        .item-name {
+            color: white !important;
+        }
+
+        .title {
+            color: white !important;
+        }
+
+        // General Paragraphs in cards
+        p {
+            color: #d1d5db !important;
+        }
+    }
+
+    // Section Headers & Badges (Global Helper)
+    .section-title {
+        color: white !important;
+        background: none !important; // Remove gradient background override
+        -webkit-text-fill-color: white !important; // Override transparent fill from gradient
+
+        // Handle nested ng-content wrappers
+        * {
+            color: white !important;
+            -webkit-text-fill-color: white !important;
+        }
+    }
+
+    .section-badge {
+        color: #8b5cf6 !important;
+    }
+
+    // Categories Icons (Force White Stroke)
+    .category-item {
+        .card {
+            svg {
+                path,
+                line {
+                    stroke: white !important;
+                }
+
+                // Handle filled rects in the SVG mask if any
+                rect[fill='white'] {
+                    fill: transparent !important;
+                }
+            }
+
+            p {
+                color: white !important;
+            }
+        }
+    }
+
+    // Service Guarantee (Details Page)
+    .details {
+        .desc,
+        .sub-desc {
+            color: white !important;
+        }
+
+        // Invert dark SVGs (External Ellipses)
+        .outer-ellipse svg path[fill='#2F2E30'] {
+            fill: rgba(255, 255, 255, 0.1) !important; // Light glass fill
+        }
+
+        // Invert Inner Icons strokes
+        g[clip-path] path {
+            stroke: white !important;
+        }
+    }
+
+    // Profile Specific
+    .profile-page {
+        .page-header h1 {
+            color: white !important;
+        }
+
+        .breadcrumb .current {
+            color: white !important;
+        }
+
+        .dashboard-sidebar .nav-links a {
+            color: #d1d5db !important;
+
+            &:hover,
+            &.active-link {
+                background-color: #6366f1 !important;
+                color: white !important;
+            }
+        }
+
+        label {
+            color: white !important;
+        }
+    }
+
+    // Datatables (Orders List)
+    .p-datatable {
+        .p-datatable-header,
+        .p-datatable-thead > tr > th,
+        .p-datatable-tbody > tr {
+            background-color: rgba(31, 41, 55, 0.6) !important;
+            color: white !important;
+        }
+
+        .p-paginator.p-component {
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+            background-color: rgba(31, 41, 55, 0.6) !important;
+            color: white !important;
+        }
+    }
+
+    // Input fields global override
+    input,
+    textarea,
+    select,
+    .p-inputtext,
+    .p-inputnumber-input {
+        background-color: rgba(31, 41, 55, 0.5) !important;
+        color: white !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+
+        &::placeholder {
+            color: #9ca3af !important;
+        }
+    }
+
+    // ============================================
+    // PRODUCTS PAGE OVERRIDES (New)
+    // ============================================
+    .products-page {
+        background-color: #111827 !important;
+    }
+
+    .filters-sidebar,
+    .mobile-filter-toggle {
+        background-color: rgba(31, 41, 55, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        color: white !important;
+    }
+
+    .filter-title {
+        color: #d1d5db !important;
+    }
+
+    // Overriding Products Page Category items (inline styles clash)
+    .filters-sidebar .category-item {
+        color: #e5e7eb !important;
 
         &:hover {
-          color: #8b5cf6 !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
         }
-      }
 
-      // Edit Profile specific label override
-      .form-group label {
+        &.active {
+            color: white !important;
+            background: linear-gradient(
+                135deg,
+                #667eea 0%,
+                #764ba2 100%
+            ) !important; // Restore active gradient
+
+            .category-icon {
+                background-color: rgba(255, 255, 255, 0.2) !important;
+            }
+        }
+
+        .category-icon {
+            background-color: rgba(31, 41, 55, 0.8) !important;
+            color: white !important;
+        }
+    }
+
+    .price-input,
+    .sort-select {
+        background-color: rgba(31, 41, 55, 0.6) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
         color: white !important;
-      }
+    }
 
-      .text-muted {
+    .view-btn,
+    .page-btn {
+        background-color: rgba(31, 41, 55, 0.6) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        color: white !important;
+
+        &:hover:not(:disabled) {
+            border-color: #8b5cf6 !important;
+            color: #8b5cf6 !important;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+        }
+    }
+
+    .results-count {
         color: #9ca3af !important;
-      }
-
-      .card-text {
-        color: #e5e7eb !important;
-      }
     }
 
-    // Specific children overrides matching user request
-    .contact-title,
-    .form-title,
-    .contact-text {
-      color: white !important;
-    }
+    // Cart Page - Specific Back Button override
+    .back-btn.btn-premium-outline,
+    .btn-premium-outline {
+        color: white !important;
+        border-color: rgba(255, 255, 255, 0.2) !important;
 
-    // Sidebar headers
-    .section-title {
-      color: #9ca3af !important;
-    }
-
-    // Cart/Order specifics
-    .order__price,
-    .item-name {
-      color: white !important;
-    }
-
-    .title {
-      color: white !important;
-    }
-
-    // General Paragraphs in cards
-    p {
-      color: #d1d5db !important;
-    }
-  }
-
-  // Section Headers & Badges (Global Helper)
-  .section-title {
-    color: white !important;
-    background: none !important; // Remove gradient background override
-    -webkit-text-fill-color: white !important; // Override transparent fill from gradient
-
-    // Handle nested ng-content wrappers
-    * {
-      color: white !important;
-      -webkit-text-fill-color: white !important;
-    }
-  }
-
-  .section-badge {
-    color: #8b5cf6 !important;
-  }
-
-  // Categories Icons (Force White Stroke)
-  .category-item {
-    .card {
-      svg {
-
-        path,
-        line {
-          stroke: white !important;
+        i {
+            color: white !important;
         }
 
-        // Handle filled rects in the SVG mask if any
-        rect[fill='white'] {
-          fill: transparent !important;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            border-color: white !important;
         }
-      }
-
-      p {
-        color: white !important;
-      }
     }
-  }
-
-  // Service Guarantee (Details Page)
-  .details {
-
-    .desc,
-    .sub-desc {
-      color: white !important;
-    }
-
-    // Invert dark SVGs (External Ellipses)
-    .outer-ellipse svg path[fill="#2F2E30"] {
-      fill: rgba(255, 255, 255, 0.1) !important; // Light glass fill
-    }
-
-    // Invert Inner Icons strokes
-    g[clip-path] path {
-      stroke: white !important;
-    }
-  }
-
-  // Profile Specific
-  .profile-page {
-    .page-header h1 {
-      color: white !important;
-    }
-
-    .breadcrumb .current {
-      color: white !important;
-    }
-
-    .dashboard-sidebar .nav-links a {
-      color: #d1d5db !important;
-
-      &:hover,
-      &.active-link {
-        background-color: #6366f1 !important;
-        color: white !important;
-      }
-    }
-
-    label {
-      color: white !important;
-    }
-  }
-
-  // Datatables (Orders List)
-  .p-datatable {
-
-    .p-datatable-header,
-    .p-datatable-thead>tr>th,
-    .p-datatable-tbody>tr {
-      background-color: rgba(31, 41, 55, 0.6) !important;
-      color: white !important;
-    }
-
-    .p-paginator.p-component {
-      border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-      background-color: rgba(31, 41, 55, 0.6) !important;
-      color: white !important;
-    }
-  }
-
-  // Input fields global override
-  input,
-  textarea,
-  select,
-  .p-inputtext,
-  .p-inputnumber-input {
-    background-color: rgba(31, 41, 55, 0.5) !important;
-    color: white !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-
-    &::placeholder {
-      color: #9ca3af !important;
-    }
-  }
-
-  // ============================================
-  // PRODUCTS PAGE OVERRIDES (New)
-  // ============================================
-  .products-page {
-    background-color: #111827 !important;
-  }
-
-  .filters-sidebar,
-  .mobile-filter-toggle {
-    background-color: rgba(31, 41, 55, 0.6) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    color: white !important;
-  }
-
-  .filter-title {
-    color: #d1d5db !important;
-  }
-
-  // Overriding Products Page Category items (inline styles clash)
-  .filters-sidebar .category-item {
-    color: #e5e7eb !important;
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.05) !important;
-    }
-
-    &.active {
-      color: white !important;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important; // Restore active gradient
-
-      .category-icon {
-        background-color: rgba(255, 255, 255, 0.2) !important;
-      }
-    }
-
-    .category-icon {
-      background-color: rgba(31, 41, 55, 0.8) !important;
-      color: white !important;
-    }
-  }
-
-  .price-input,
-  .sort-select {
-    background-color: rgba(31, 41, 55, 0.6) !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-    color: white !important;
-  }
-
-  .view-btn,
-  .page-btn {
-    background-color: rgba(31, 41, 55, 0.6) !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-    color: white !important;
-
-    &:hover:not(:disabled) {
-      border-color: #8b5cf6 !important;
-      color: #8b5cf6 !important;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-    }
-  }
-
-  .results-count {
-    color: #9ca3af !important;
-  }
-
-  // Cart Page - Specific Back Button override
-  .back-btn.btn-premium-outline,
-  .btn-premium-outline {
-    color: white !important;
-    border-color: rgba(255, 255, 255, 0.2) !important;
-
-    i {
-      color: white !important;
-    }
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1) !important;
-      border-color: white !important;
-    }
-  }
 }

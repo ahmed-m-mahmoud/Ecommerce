@@ -1,9 +1,21 @@
 <section class="products-section">
     <div class="container">
-        <div class="products-grid">
-            @for (product of products; track product.id) {
-                <app-product-item [product]="product"></app-product-item>
-            }
-        </div>
+        @if (products?.length) {
+            <div class="products-grid">
+                @for (product of products; track product.id) {
+                    <app-product-item [product]="product"></app-product-item>
+                }
+            </div>
+        } @else {
+            <div class="products-empty">
+                <i class="pi pi-shopping-bag"></i>
+                <h3 class="products-empty__title">
+                    {{ 'PRODUCTS.NO_PRODUCTS_FOUND' | translate }}
+                </h3>
+                <p class="products-empty__text">
+                    {{ 'PRODUCTS.TRY_ADJUSTING' | translate }}
+                </p>
+            </div>
+        }
     </div>
 </section>

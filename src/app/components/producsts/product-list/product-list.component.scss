@@ -1,17 +1,63 @@
 @import '../../../../assets/styles/premium';
 
 .products-section {
-    padding: 1rem 0;
+    padding: 1.25rem 0;
 }
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
 
     // Ensure the grid items stretch to fill height
     app-product-item {
         height: 100%;
         display: block; // Web Component fix
+    }
+}
+
+// ---------- Empty state ----------
+.products-empty {
+    display: grid;
+    place-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 4rem 1rem;
+    border-radius: $radius-lg;
+    border: 1.5px dashed #e2e8f0;
+    background: rgba(99, 102, 241, 0.03);
+
+    i {
+        font-size: 3rem;
+        color: #c7cbe0;
+        margin-bottom: 0.5rem;
+    }
+
+    &__title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: $premium-dark;
+        margin: 0;
+    }
+
+    &__text {
+        color: $premium-muted;
+        margin: 0;
+        font-size: 0.92rem;
+    }
+}
+
+:host-context(body.dark) {
+    .products-empty {
+        border-color: rgba(255, 255, 255, 0.1);
+        background: rgba(99, 102, 241, 0.05);
+
+        i {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        &__title {
+            color: #e5e7eb;
+        }
     }
 }

@@ -1,24 +1,22 @@
-<!-- Hero Section (Premium Landing) -->
+<!-- ================= HERO ================= -->
 <section class="hero-section">
     <div class="container-premium h-100">
         <div class="hero-banner-card">
             <div class="row h-100 align-items-center g-0">
                 <!-- Left Content -->
-                <div
-                    class="col-lg-6 hero-content z-2 py-5 ps-lg-5 text-center text-lg-start"
-                    animateFromLeft
-                >
-                    <div
-                        class="hero-badge badge-premium badge-success mb-3 d-inline-block"
-                    >
+                <div class="col-lg-6 hero-content z-2 py-5 ps-lg-5 text-center text-lg-start">
+                    <div class="hero-badge badge-premium badge-success mb-3 d-inline-block">
                         {{ 'HOME.NEW_COLLECTIONS' | translate }}
                     </div>
-                    <h1 class="hero-title text-white mb-4">
+                    <h1 class="hero-title text-white mb-3">
                         {{ 'HOME.ENHANCE_YOUR' | translate }}<br />
                         <span class="gradient-text-warm">{{
                             'HOME.MUSIC_EXPERIENCE' | translate
                         }}</span>
                     </h1>
+                    <p class="hero-subtitle mb-4">
+                        {{ 'HOME.HERO_SUBTITLE' | translate }}
+                    </p>
 
                     <div
                         class="timer-container d-flex justify-content-center justify-content-lg-start gap-3 mb-4"
@@ -45,19 +43,22 @@
                         ></app-timer-digit>
                     </div>
 
-                    <button
-                        routerLink="/products"
-                        class="btn btn-premium-success btn-lg px-5 hover-lift"
-                        routerLink="/products"
+                    <div
+                        class="hero-actions d-flex flex-column flex-sm-row align-items-center justify-content-center justify-content-lg-start gap-3"
                     >
-                        {{ 'BANNER.BUY_NOW' | translate }}
-                    </button>
+                        <a routerLink="/products" class="btn btn-premium-success btn-lg px-5 hover-lift">
+                            {{ 'BANNER.BUY_NOW' | translate }}
+                        </a>
+                        <a routerLink="/products" class="hero-secondary-link">
+                            {{ 'HOME.EXPLORE_DEALS' | translate }}
+                            <i class="pi pi-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Right Image -->
                 <div
                     class="col-lg-6 hero-visual h-100 d-flex align-items-center justify-content-center position-relative z-1"
-                    animateFromRight
                 >
                     <div class="hero-glow" aria-hidden="true"></div>
                     <img
@@ -65,14 +66,38 @@
                         alt="JBL Boombox"
                         class="img-fluid hero-image hover-scale"
                     />
+
+                    <!-- Floating story chips -->
+                    <div class="float-chip float-chip--deal">
+                        <i class="pi pi-bolt"></i>
+                        <span>{{ 'HOME.CHIP_FLASH_DEAL' | translate }}</span>
+                    </div>
+                    <div class="float-chip float-chip--ship">
+                        <i class="pi pi-truck"></i>
+                        <span>{{ 'HOME.CHIP_FREE_SHIP' | translate }}</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Flash Sales Section -->
-<section class="py-5 bg-light-premium">
+<!-- ================= TRUST STRIP ================= -->
+<section class="home-section home-section--white">
+    <app-details></app-details>
+</section>
+
+<!-- ================= CATEGORIES ================= -->
+<section class="home-section home-section--soft">
+    <app-shared-header>
+        <span header-title>{{ 'HOME.BROWSE_COLLECTIONS' | translate }}</span>
+        <span header-desc>{{ 'HOME.BROWSE_BY_CATEGORY' | translate }}</span>
+    </app-shared-header>
+    <app-categories></app-categories>
+</section>
+
+<!-- ================= FLASH SALES ================= -->
+<section class="home-section home-section--white">
     <app-shared-header>
         <span header-title>{{ 'HOME.LIMITED_TIME_OFFERS' | translate }}</span>
         <span header-desc>{{ 'HOME.FLASH_SALES' | translate }}</span>
@@ -81,27 +106,18 @@
     <div class="container">
         <app-product-list [products]="flashSales$ | async"></app-product-list>
 
-        <div class="d-flex justify-content-center mt-5">
+        <div class="load-more-wrap">
             <app-shared-button
                 [allLoaded]="allFlashSalesLoaded"
-                [allLoadedAndOneSection]="allLoadedAndOnlyOnePage"
+                [allLoadedAndOneSection]="allFlashSalesInOnePage"
                 (loadMoreEvent)="loadMore('flashSales')"
             ></app-shared-button>
         </div>
     </div>
 </section>
 
-<!-- Categories Section -->
-<section class="py-5 bg-light-premium">
-    <app-shared-header>
-        <span header-title>{{ 'HOME.BROWSE_COLLECTIONS' | translate }}</span>
-        <span header-desc>{{ 'HOME.BROWSE_BY_CATEGORY' | translate }}</span>
-    </app-shared-header>
-    <app-categories></app-categories>
-</section>
-
-<!-- Best Selling Section -->
-<section class="py-5 bg-light-premium">
+<!-- ================= BEST SELLING ================= -->
+<section class="home-section home-section--soft">
     <app-shared-header>
         <span header-title>{{ 'HOME.CUSTOMER_FAVORITES' | translate }}</span>
         <span header-desc>{{ 'HOME.BEST_SELLING_PRODUCTS' | translate }}</span>
@@ -110,7 +126,7 @@
     <div class="container">
         <app-product-list [products]="bestSelling$ | async"></app-product-list>
 
-        <div class="d-flex justify-content-center mt-5">
+        <div class="load-more-wrap">
             <app-shared-button
                 [allLoaded]="allBestSellingLoaded"
                 (loadMoreEvent)="loadMore('bestSelling')"
@@ -119,10 +135,36 @@
     </div>
 </section>
 
-<!-- Promo Banner -->
-<!-- Newsletter Section -->
+<!-- ================= NEW ARRIVALS ================= -->
+<section class="home-section home-section--white">
+    <app-shared-header>
+        <span header-title>{{ 'HOME.JUST_ARRIVED' | translate }}</span>
+        <span header-desc>{{ 'HOME.NEW_ARRIVALS' | translate }}</span>
+    </app-shared-header>
+    <app-new-arrivals></app-new-arrivals>
+</section>
 
-<section class="py-5 bg-light-premium">
+<!-- ================= ALL PRODUCTS ================= -->
+<section class="home-section home-section--soft">
+    <app-shared-header>
+        <span header-title>{{ 'HOME.EXPLORE_ALL' | translate }}</span>
+        <span header-desc>{{ 'HOME.OUR_PRODUCTS' | translate }}</span>
+    </app-shared-header>
+
+    <div class="container">
+        <app-product-list [products]="products$ | async"></app-product-list>
+
+        <div class="load-more-wrap">
+            <app-shared-button
+                [allLoaded]="allProductsLoaded"
+                (loadMoreEvent)="loadMore('products')"
+            ></app-shared-button>
+        </div>
+    </div>
+</section>
+
+<!-- ================= NEWSLETTER ================= -->
+<section class="home-section home-section--white newsletter-wrap">
     <div class="container">
         <div class="newsletter-card position-relative overflow-hidden">
             <div class="row align-items-center position-relative z-1 p-5">
@@ -142,26 +184,50 @@
                         </p>
                     </div>
                 </div>
+
                 <div class="col-lg-6">
-                    <form class="newsletter-form d-flex gap-2">
-                        <input
-                            type="email"
-                            class="form-control form-control-lg border-0"
-                            [placeholder]="
-                                'HOME.ENTER_EMAIL_PLACEHOLDER' | translate
-                            "
-                        />
+                    @if (isSubscribed) {
+                    <div class="newsletter-success">
+                        <i class="pi pi-check-circle"></i>
+                        <span>{{ 'HOME.NEWSLETTER_SUCCESS' | translate }}</span>
+                    </div>
+                    } @else {
+                    <form class="newsletter-form d-flex gap-2" (ngSubmit)="subscribe()" novalidate>
+                        <div class="newsletter-field flex-grow-1">
+                            <input
+                                type="email"
+                                name="email"
+                                class="form-control form-control-lg border-0"
+                                formControlName="email"
+                                [placeholder]="
+                                    'HOME.ENTER_EMAIL_PLACEHOLDER' | translate
+                                "
+                            />
+                            @if (newsletterForm.controls.email.touched && newsletterForm.controls.email.invalid) {
+                            <small class="newsletter-error d-block mt-2">
+                                <i class="pi pi-info-circle me-1"></i>
+                                {{ 'AUTH.VALIDATION.EMAIL' | translate }}
+                            </small>
+                            }
+                        </div>
                         <button
                             class="btn btn-premium-success btn-lg px-4"
-                            type="button"
+                            type="submit"
+                            [attr.disabled]="isSubscribing || null"
                         >
+                            @if (isSubscribing) {
+                            <i class="pi pi-spin pi-spinner me-1"></i>
+                            {{ 'HOME.SUBSCRIBING' | translate }}
+                            } @else {
                             {{ 'FOOTER.SUBSCRIBE' | translate }}
+                            }
                         </button>
                     </form>
                     <p class="text-white-50 small mt-3 mb-0">
                         <i class="pi pi-check-circle me-1 text-success"></i>
                         {{ 'HOME.NO_SPAM' | translate }}
                     </p>
+                    }
                 </div>
             </div>
 
@@ -172,34 +238,5 @@
     </div>
 </section>
 
-<!-- All Products Section -->
-<section class="py-5 bg-light-premium">
-    <app-shared-header>
-        <span header-title>{{ 'HOME.EXPLORE_ALL' | translate }}</span>
-        <span header-desc>{{ 'HOME.OUR_PRODUCTS' | translate }}</span>
-    </app-shared-header>
-
-    <div class="container">
-        <app-product-list [products]="products$ | async"></app-product-list>
-
-        <div class="d-flex justify-content-center mt-5 mb-5">
-            <app-shared-button
-                [allLoaded]="allProductsLoaded"
-                (loadMoreEvent)="loadMore('products')"
-            ></app-shared-button>
-        </div>
-    </div>
-</section>
-
-<!-- New Arrivals Section -->
-<section class="py-5 bg-light-premium">
-    <app-shared-header>
-        <span header-title>{{ 'HOME.JUST_ARRIVED' | translate }}</span>
-        <span header-desc>{{ 'HOME.NEW_ARRIVALS' | translate }}</span>
-    </app-shared-header>
-    <app-new-arrivals></app-new-arrivals>
-</section>
-<section class="bg-light-premium">
-    <app-details></app-details>
-</section>
+<p-toast />
 <app-loading></app-loading>

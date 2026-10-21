@@ -7,13 +7,23 @@
 
 .card {
   @include premium-card;
-  // background: white;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(15, 23, 42, 0.06);
   height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+
+    .card-cart {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      border-color: transparent;
+      color: #ffffff;
+      box-shadow: 0 8px 18px rgba(99, 102, 241, 0.35);
+    }
+  }
 
   // Discount Badge
   &__discount {
@@ -22,7 +32,7 @@
     left: 1rem;
     background: $gradient-warm;
     color: white;
-    padding: 0.25rem 0.75rem;
+    padding: 0.28rem 0.8rem;
     border-radius: $radius-full;
     font-size: 0.75rem;
     font-weight: 700;
@@ -114,7 +124,10 @@
   .card-top {
     position: relative;
     padding-top: 100%; // 1:1 Aspect Ratio
-    // background: #f8fafc;
+    cursor: pointer;
+    background:
+      radial-gradient(circle at 50% 40%, rgba(99, 102, 241, 0.05) 0%, rgba(99, 102, 241, 0) 62%)
+      #f8f9fd;
     overflow: hidden;
 
     .image-container {
@@ -144,11 +157,11 @@
 
   // Card Body
   .card-body {
-    padding: 1.25rem;
+    padding: 1.25rem 1.25rem 1.35rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    gap: 0.5rem;
+    gap: 0.45rem;
 
     a.card-title {
       color: $premium-dark;
@@ -160,7 +173,7 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.35rem;
       transition: color $transition-base;
 
       &:hover {
@@ -172,7 +185,7 @@
       display: flex;
       align-items: baseline;
       gap: 0.75rem;
-      margin-bottom: 0.5rem;
+      margin: 0 0 0.4rem;
       font-family: 'Inter', sans-serif; // Force Inter font
 
       // Current Price
@@ -197,6 +210,7 @@
       align-items: center;
       justify-content: space-between;
       margin-top: auto;
+      margin-bottom: 0.75rem;
 
       .stock-info {
         font-size: 0.75rem;
@@ -214,6 +228,44 @@
           color: $premium-success;
           background: rgba(16, 185, 129, 0.1);
         }
+      }
+    }
+
+    // Quick add-to-cart bar
+    .card-cart {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      width: 100%;
+      padding: 0.6rem 1rem;
+      border: 1.5px solid rgba(99, 102, 241, 0.28);
+      border-radius: 0.75rem;
+      background: transparent;
+      color: $premium-primary;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all $transition-base;
+
+      i {
+        font-size: 0.9rem;
+      }
+
+      &:hover:not(:disabled) {
+        transform: translateY(-1px);
+      }
+
+      &:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      &.out-of-stock {
+        border-color: rgba(15, 23, 42, 0.1);
+        color: $premium-muted;
+        background: #f3f4f6;
       }
     }
   }
@@ -277,6 +329,16 @@
         margin-top: auto;
         padding-top: 1rem;
         border-top: 1px solid rgba(0,0,0,0.05);
+
+        .stock-info {
+          margin-inline-end: auto;
+        }
+      }
+
+      .card-cart {
+        width: auto;
+        margin-top: 0.9rem;
+        padding: 0.6rem 1.5rem;
       }
     }
 
@@ -307,11 +369,55 @@
 
 // Dark Mode Specifics for List View (Inherited globally but tweaked here if needed)
 :host-context(body.dark) {
+  .card {
+    background: linear-gradient(180deg, #253043 0%, #1f2937 100%);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+
+    &:hover {
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    .card-top {
+      background:
+        radial-gradient(circle at 50% 40%, rgba(99, 102, 241, 0.14) 0%, rgba(99, 102, 241, 0) 66%)
+        #2b3548;
+
+      // multiply would swallow the image into the dark canvas — use normal blending
+      .product-image {
+        mix-blend-mode: normal;
+        filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.45));
+      }
+    }
+
+    .stock-info {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e5e7eb;
+    }
+
+    .card-title {
+      color: #f9fafb;
+    }
+
+    .card-cart {
+      border-color: rgba(255, 255, 255, 0.18);
+      color: #c7d2fe;
+
+      &.out-of-stock {
+        border-color: rgba(255, 255, 255, 0.1);
+        color: #9ca3af;
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+  }
+
   :host.list-view {
     .card {
       .card-top {
-        border-right-color: rgba(255,255,255,0.05);
-        background: rgba(255,255,255,0.02);
+        border-right-color: rgba(255,255,255,0.08);
+        background:
+          radial-gradient(circle at 50% 40%, rgba(99, 102, 241, 0.14) 0%, rgba(99, 102, 241, 0) 66%)
+          #2b3548;
       }
 
       .card-body .stars {
@@ -346,5 +452,32 @@
     &:hover .card__icons {
       transform: translateX(0);
     }
+  }
+}
+
+:host-context(html[lang='ar']) {
+  .card {
+    &__discount {
+      left: auto;
+      right: 1rem;
+    }
+
+    &__icons {
+      right: auto;
+      left: 1rem;
+      transform: translateX(-10px);
+    }
+
+    &:hover .card__icons {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Touch: always reveal action icons
+@media (hover: none) {
+  .card__icons {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

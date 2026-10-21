@@ -1,27 +1,27 @@
 <section class="categories">
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="categories__grid">
             <app-category-item
-                class="col-8 mb-sm-3 offset-md-0 col-md-6 col-lg-3"
                 [queryParams]="{ category: 'phones' }"
+                icon="phones"
             >
                 <ng-container title>{{ 'HOME.PHONES' | translate }}</ng-container>
             </app-category-item>
             <app-category-item
-                class="col-8 mb-sm-3 offset-md-0 col-md-6 col-lg-3"
                 [queryParams]="{ category: 'computers' }"
+                icon="computers"
             >
                 <ng-container title>{{ 'HOME.COMPUTERS' | translate }}</ng-container>
             </app-category-item>
             <app-category-item
-                class="col-8 mb-sm-3 offset-md-0 col-md-6 col-lg-3"
                 [queryParams]="{ category: 'headphones' }"
+                icon="headphones"
             >
                 <ng-container title>{{ 'HOME.HEADPHONES' | translate }}</ng-container>
             </app-category-item>
             <app-category-item
-                class="col-8 mb-sm-3 offset-md-0 col-md-6 col-lg-3"
                 [queryParams]="{ category: 'smartwatches' }"
+                icon="smartwatches"
             >
                 <ng-container title>{{ 'HOME.SMARTWATCHES' | translate }}</ng-container>
             </app-category-item>
